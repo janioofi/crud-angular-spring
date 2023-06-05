@@ -21,6 +21,7 @@ public class CrudSpringApplication {
 			Course c = new Course();
 			c.setName("Angular");
 			c.setCategory("front-end");
+			c.setHours(80);
 			courseRepository.save(c);
 		};
 	}

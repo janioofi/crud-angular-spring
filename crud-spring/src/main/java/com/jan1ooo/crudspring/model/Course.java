@@ -19,5 +19,8 @@ public class Course {
     @Column(length = 20, nullable = false)
     private String category;
 
+    @Column(nullable = false)
+    private Integer hours;
+
 
 }
