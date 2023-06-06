@@ -3,6 +3,8 @@ package com.jan1ooo.crudspring.controller;
 import com.jan1ooo.crudspring.model.Course;
 import com.jan1ooo.crudspring.repository.CourseRepository;
 import lombok.AllArgsConstructor;
+
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,7 @@ public class CourseController {
                         recordFound.setCategory(course.getCategory());
                         recordFound.setHours(course.getHours());
                         Course update = courseRepository.save(recordFound);
-                        return ResponseEntity.ok().body(recordFound);
+                        return ResponseEntity.ok().body(update);
             }).orElse(ResponseEntity.notFound().build());
 
     }
