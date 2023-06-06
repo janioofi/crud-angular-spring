@@ -11,9 +11,9 @@
 	<!-- Hours Column -->
 	<ng-container matColumnDef="hours">
 		<mat-header-cell *matHeaderCellDef>Horas</mat-header-cell>
-		<mat-cell *matCellDef="let course">{{ course.hours }}</mat-cell>
+		<mat-cell *matCellDef="let course">{{ course.hours }}h</mat-cell>
 	</ng-container>
-	
+
 	<!-- Category Column -->
 	<ng-container matColumnDef="category">
 		<mat-header-cell *matHeaderCellDef>Categoria</mat-header-cell>
@@ -46,6 +46,7 @@
 				mat-icon-button
 				color="primary"
 				aria-label="Editar um curso"
+				(click)="onEdit(course)"
 			>
 				<mat-icon>edit</mat-icon>
 			</button>
