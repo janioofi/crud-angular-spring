@@ -4,17 +4,19 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { CategoryPipe } from './pipes/category.pipe';
+import { ConfirmationDialogComponent } from '../courses/components/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
   declarations: [
     ErrorDialogComponent,
-    CategoryPipe
+    CategoryPipe,
+	ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
 	AppMaterialModule,
   ],
-  exports: [ErrorDialogComponent, CategoryPipe]
+  exports: [ErrorDialogComponent, CategoryPipe, ConfirmationDialogComponent]
 })
 export class SharedModule { }
