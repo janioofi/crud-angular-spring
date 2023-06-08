@@ -7,6 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @SpringBootApplication
 public class CrudSpringApplication {
 
@@ -19,10 +22,16 @@ public class CrudSpringApplication {
 		return args -> {
 			courseRepository.deleteAll();
 			Course c = new Course();
+			Course c1 = new Course();
 			c.setName("Angular");
 			c.setCategory("front-end");
 			c.setHours(80);
+
+			c1.setName("React");
+			c1.setCategory("front-end");
+			c1.setHours(100);
 			courseRepository.save(c);
+			courseRepository.save(c1);
 		};
 	}
 
