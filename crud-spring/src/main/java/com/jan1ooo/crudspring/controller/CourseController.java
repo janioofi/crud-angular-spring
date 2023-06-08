@@ -46,7 +46,7 @@ public class CourseController {
                         recordFound.setHours(course.getHours());
                         Course update = courseRepository.save(recordFound);
                         return ResponseEntity.ok().body(update);
-            }).orElse(ResponseEntity.notFound().build());
+                    }).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
