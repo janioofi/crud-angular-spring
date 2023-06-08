@@ -47,6 +47,15 @@ public class CourseController {
                         Course update = courseRepository.save(recordFound);
                         return ResponseEntity.ok().body(update);
             }).orElse(ResponseEntity.notFound().build());
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        return courseRepository.findById(id)
+                .map(recordFound -> {
+                    courseRepository.deleteById(id);
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
