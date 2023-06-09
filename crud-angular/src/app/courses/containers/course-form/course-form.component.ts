@@ -15,7 +15,7 @@ export class CourseFormComponent implements OnInit {
 
 	form = this.formBuilder.group({
 		_id: [''],
-		name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]],
+		name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
 		category: ['',[Validators.required]],
 		hours: ['', [Validators.required, Validators.min(1), Validators.max(500)]],
 	});
@@ -71,7 +71,7 @@ export class CourseFormComponent implements OnInit {
 		}
 
 		if(field?.hasError('maxlength')){
-			const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 200;
+			const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 100;
 			return `Tamanho máximo é ${requiredLength} caracteres`;
 		}
 
