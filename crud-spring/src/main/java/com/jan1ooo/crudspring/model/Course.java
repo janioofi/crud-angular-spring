@@ -4,10 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLSelect;
+import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
 @Data
 @Entity
+@SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id = ?")
+@Where(clause = "status = 'Ativo'")
 public class Course {
 
     @Id
@@ -31,6 +36,13 @@ public class Course {
     @Max(500)
     @Column(nullable = false)
     private Integer hours;
+
+    @NotNull
+    @Length(max = 10)
+    @Column(length = 10, nullable = false)
+    @Pattern(regexp = "Ativo|Inativo")
+    private String status = "Ativo";
+
 
 
 }
