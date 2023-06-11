@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLSelect;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 

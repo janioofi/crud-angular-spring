@@ -1,6 +1,6 @@
 package com.jan1ooo.crudspring.controller;
 
-import com.jan1ooo.crudspring.exception.RecordNotFoundException;
+import com.jan1ooo.crudspring.dto.CourseDTO;
 import com.jan1ooo.crudspring.model.Course;
 import com.jan1ooo.crudspring.service.CourseService;
 import jakarta.validation.Valid;
@@ -28,29 +28,32 @@ public class CourseController {
     }
 
     @GetMapping
-    public List<Course> findAll(){
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<CourseDTO> findAll(){
         return courseService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findById(@PathVariable @NotNull @Positive Long id){
-            return ResponseEntity.ok().body(courseService.findById(id));
+    @ResponseStatus(code = HttpStatus.OK)
+    public CourseDTO findById(@PathVariable @NotNull @Positive Long id){
+            return courseService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Course> save(@RequestBody @Valid Course course){
-        courseService.save(course);
-        return ResponseEntity.status(HttpStatus.CREATED).body(course);
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public CourseDTO save(@RequestBody @Valid CourseDTO course){
+        return courseService.save(course);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Course> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Course course){
-            return ResponseEntity.ok().body(courseService.update(id, course));
+    @ResponseStatus(code = HttpStatus.OK)
+    public CourseDTO update(@PathVariable @NotNull @Positive Long id, @RequestBody @NotNull @Valid CourseDTO course){
+            return courseService.update(id, course);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable @NotNull @Positive Long id) {
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable @NotNull @Positive Long id) {
         courseService.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 }
