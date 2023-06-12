@@ -1,5 +1,6 @@
 package com.jan1ooo.crudspring;
 
+import com.jan1ooo.crudspring.enums.Category;
 import com.jan1ooo.crudspring.model.Course;
 import com.jan1ooo.crudspring.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -24,11 +25,11 @@ public class CrudSpringApplication {
 			Course c = new Course();
 			Course c1 = new Course();
 			c.setName("Angular");
-			c.setCategory("front-end");
+			c.setCategory(Category.FRONTEND);
 			c.setHours(80);
 
 			c1.setName("React");
-			c1.setCategory("front-end");
+			c1.setCategory(Category.FRONTEND);
 			c1.setHours(100);
 			courseRepository.save(c);
 			courseRepository.save(c1);

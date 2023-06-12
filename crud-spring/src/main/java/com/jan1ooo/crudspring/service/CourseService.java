@@ -2,6 +2,7 @@ package com.jan1ooo.crudspring.service;
 
 import com.jan1ooo.crudspring.dto.CourseDTO;
 import com.jan1ooo.crudspring.dto.mapper.CourseMapper;
+import com.jan1ooo.crudspring.enums.Category;
 import com.jan1ooo.crudspring.exception.RecordNotFoundException;
 import com.jan1ooo.crudspring.model.Course;
 import com.jan1ooo.crudspring.repository.CourseRepository;
@@ -50,7 +51,7 @@ public class CourseService {
         return courseRepository.findById(id)
                 .map(recordFound -> {
                     recordFound.setName(course.name());
-                    recordFound.setCategory(course.category());
+                    recordFound.setCategory(Category.FRONTEND);
                     recordFound.setHours(course.hours());
                     return courseMapper.toDTO(courseRepository.save(recordFound));
                 })

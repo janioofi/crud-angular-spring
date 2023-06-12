@@ -1,6 +1,8 @@
 package com.jan1ooo.crudspring.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jan1ooo.crudspring.enums.Category;
+import com.jan1ooo.crudspring.enums.converters.CategoryConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -26,9 +28,9 @@ public class Course {
     private String name;
 
     @NotNull
-    @Length(max = 10)
-    @Column(length = 20, nullable = false)
-    private String category;
+    @Column(length = 10,nullable = false)
+    @Convert(converter = CategoryConverter.class)
+    private Category category;
 
     @NotNull
     @Min(1)
