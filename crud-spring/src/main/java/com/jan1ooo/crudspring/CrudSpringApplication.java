@@ -32,7 +32,13 @@ public class CrudSpringApplication {
 			l.setName("Introdução");
 			l.setYoutubeUrl("https://youtu.be/pTIhNB_ulM8");
 			l.setCourse(c);
+
+			Lesson l2 = new Lesson();
+			l2.setName("Teste 2");
+			l2.setYoutubeUrl("https://youtu.be/pTIhNB_ulM8");
+			l2.setCourse(c);
 			c.getLessons().add(l);
+			c.getLessons().add(l2);
 
 //			c1.setName("React");
 //			c1.setCategory(Category.FRONTEND);
