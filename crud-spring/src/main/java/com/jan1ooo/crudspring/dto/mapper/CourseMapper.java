@@ -14,7 +14,7 @@ public class CourseMapper {
         if (course == null) {
             return null;
         }
-        return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue(), course.getHours());
+        return new CourseDTO(course.getId_course(), course.getName(), course.getCategory().getValue(), course.getHours());
     }
 
     public Course toEntity(CourseDTO courseDTO) {
@@ -24,7 +24,7 @@ public class CourseMapper {
 
         Course course = new Course();
         if (courseDTO.id() != null) {
-            course.setId(courseDTO.id());
+            course.setId_course(courseDTO.id());
         }
         course.setName(courseDTO.name());
         // TO DO: use o mapper for Category

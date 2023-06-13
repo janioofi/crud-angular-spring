@@ -16,6 +16,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -30,7 +32,7 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("_id")
-    private Long id;
+    private Long id_course;
 
     @NotNull
     @NotBlank
@@ -53,4 +55,8 @@ public class Course {
     @Column(length = 10, nullable = false)
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ACTIVE;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
+    //@JoinColumn(name = "id_course")
+    private List<Lesson> lessons = new ArrayList<>();
 }

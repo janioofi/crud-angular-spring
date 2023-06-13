@@ -2,6 +2,7 @@ package com.jan1ooo.crudspring;
 
 import com.jan1ooo.crudspring.enums.Category;
 import com.jan1ooo.crudspring.model.Course;
+import com.jan1ooo.crudspring.model.Lesson;
 import com.jan1ooo.crudspring.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,12 +28,17 @@ public class CrudSpringApplication {
 			c.setName("Angular");
 			c.setCategory(Category.FRONTEND);
 			c.setHours(80);
+			Lesson l = new Lesson();
+			l.setName("Introdução");
+			l.setYoutubeUrl("https://youtu.be/pTIhNB_ulM8");
+			l.setCourse(c);
+			c.getLessons().add(l);
 
-			c1.setName("React");
-			c1.setCategory(Category.FRONTEND);
-			c1.setHours(100);
+//			c1.setName("React");
+//			c1.setCategory(Category.FRONTEND);
+//			c1.setHours(100);
 			courseRepository.save(c);
-			courseRepository.save(c1);
+//			courseRepository.save(c1);
 		};
 	}
 
