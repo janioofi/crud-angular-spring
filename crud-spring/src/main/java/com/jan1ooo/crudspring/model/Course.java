@@ -2,15 +2,26 @@ package com.jan1ooo.crudspring.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jan1ooo.crudspring.enums.Category;
+import com.jan1ooo.crudspring.enums.Status;
 import com.jan1ooo.crudspring.enums.converters.CategoryConverter;
+import com.jan1ooo.crudspring.enums.converters.StatusConverter;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.Data;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
-@Data
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id = ?")
 @Where(clause = "status = 'Ativo'")
@@ -39,11 +50,7 @@ public class Course {
     private Integer hours;
 
     @NotNull
-    @Length(max = 10)
     @Column(length = 10, nullable = false)
-    @Pattern(regexp = "Ativo|Inativo")
-    private String status = "Ativo";
-
-
-
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ACTIVE;
 }

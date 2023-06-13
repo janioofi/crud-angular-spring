@@ -5,6 +5,8 @@ import com.jan1ooo.crudspring.enums.Category;
 import com.jan1ooo.crudspring.model.Course;
 import org.springframework.stereotype.Component;
 
+import static com.jan1ooo.crudspring.enums.Category.*;
+
 @Component
 public class CourseMapper {
 
@@ -12,7 +14,7 @@ public class CourseMapper {
         if (course == null) {
             return null;
         }
-        return new CourseDTO(course.getId(), course.getName(), "FRONTEND", course.getHours());
+        return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue(), course.getHours());
     }
 
     public Course toEntity(CourseDTO courseDTO) {
@@ -25,9 +27,21 @@ public class CourseMapper {
             course.setId(courseDTO.id());
         }
         course.setName(courseDTO.name());
-        course.setCategory(Category.FRONTEND);
+        // TO DO: use o mapper for Category
+        course.setCategory(convertCategoryValue(courseDTO.category()));
         course.setHours(courseDTO.hours());
         return course;
+    }
+
+    public Category convertCategoryValue(String value){
+        if(value == null){
+            return null;
+        }
+        return switch (value){
+            case "Front-end" -> Category.FRONTEND;
+            case "Back-end" -> Category.BACKEND;
+            default -> throw new IllegalArgumentException("Categoria invalida: " + value);
+        };
     }
 
 }
