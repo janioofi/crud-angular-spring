@@ -14,6 +14,7 @@ public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("_id")
     private Long id_lesson;
 
     @Column(length = 100, nullable = false)

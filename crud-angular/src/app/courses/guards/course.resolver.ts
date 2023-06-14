@@ -17,7 +17,7 @@ export class CourseResolver {
     if (courseId) {
       return this.coursesService.loadById(courseId);
     } else {
-      return {_id: '', name: '', category: '', hours: ''};
+      return {_id: '', name: '', category: '', hours: '', lessons: []};
     }
   };
 }

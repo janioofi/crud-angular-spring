@@ -1,8 +1,10 @@
 package com.jan1ooo.crudspring.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public record LessonDTO(
-        Long id_lesson,
+        @JsonProperty("_id") Long id_lesson,
         String name,
         String youtubeUrl) {
 }
