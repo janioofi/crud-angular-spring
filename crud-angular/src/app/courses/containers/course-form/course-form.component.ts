@@ -1,5 +1,6 @@
+import { Lesson } from './../../model/lesson';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CoursesService } from '../../service/courses.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
@@ -13,12 +14,7 @@ import { Course } from '../../model/course';
 })
 export class CourseFormComponent implements OnInit {
 
-	form = this.formBuilder.group({
-		_id: [''],
-		name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-		category: ['',[Validators.required]],
-		hours: ['', [Validators.required, Validators.min(1), Validators.max(500)]],
-	});
+	form!: FormGroup;
 
 	constructor(
 		private formBuilder: NonNullableFormBuilder,
@@ -30,13 +26,31 @@ export class CourseFormComponent implements OnInit {
 
 	ngOnInit(): void {
 		const course: Course = this.route.snapshot.data['course']
-		this.form.setValue({
-			_id: course._id,
-			name: course.name,
-			category: course.category,
-			hours: course.hours
+		this.form = this.formBuilder.group({
+			_id: [course._id],
+			name: [course.name, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+			category: [course.category,[Validators.required]],
+			hours: [course.hours, [Validators.required, Validators.min(1), Validators.max(500)]],
+			lessons: this.formBuilder.array(this.retrieveLessons(course))
+		})
+	}
+
+	private retrieveLessons(course: Course) {
+		const lessons = [];
+		if(course?.lessons){
+			course.lessons.forEach(lesson => lessons.push(this.createLesson(lesson)));
+		} else {
+			lessons.push(this.createLesson());
+		}
+		return lessons;
+	}
+
+	private createLesson(lesson: Lesson = {_id: '', name: '', youtubeUrl: ''}){
+		return this.formBuilder.group({
+			_id: [lesson._id],
+			name: [lesson.name],
+			youtubeUrl:[lesson.youtubeUrl]
 		});
-		console.log(course)
 	}
 
 	onSubmit() {
