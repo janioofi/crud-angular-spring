@@ -50,9 +50,13 @@ public class CourseService {
     public CourseDTO update(@NotNull @Positive Long id, @Valid @NotNull CourseDTO courseDTO) {
         return courseRepository.findById(id)
                 .map(recordFound -> {
+                    Course course = courseMapper.toEntity(courseDTO);
                     recordFound.setName(courseDTO.name());
                     recordFound.setCategory(courseMapper.convertCategoryValue(courseDTO.category()));
                     recordFound.setHours(courseDTO.hours());
+                    //recordFound.setLessons(course.getLessons());
+                    recordFound.getLessons().clear();
+                    course.getLessons().forEach(recordFound.getLessons()::add);
                     return courseMapper.toDTO(courseRepository.save(recordFound));
                 })
                 .orElseThrow(() -> new RecordNotFoundException(id));
