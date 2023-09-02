@@ -23,28 +23,25 @@ public class CrudSpringApplication {
 	CommandLineRunner initDatabase(CourseRepository courseRepository){
 		return args -> {
 			courseRepository.deleteAll();
+
 			Course c = new Course();
-			Course c1 = new Course();
 			c.setName("Angular");
 			c.setCategory(Category.FRONTEND);
 			c.setHours(80);
+
 			Lesson l = new Lesson();
 			l.setName("Introdução");
-			l.setYoutubeUrl("https://youtu.be/pTIhNB_ulM8");
+			l.setYoutubeUrl("pTIhNB_ulM8");
 			l.setCourse(c);
 
 			Lesson l2 = new Lesson();
 			l2.setName("Teste 2");
-			l2.setYoutubeUrl("https://youtu.be/pTIhNB_ulM8");
+			l2.setYoutubeUrl("pTIhNB_ulM8");
 			l2.setCourse(c);
 			c.getLessons().add(l);
 			c.getLessons().add(l2);
 
-//			c1.setName("React");
-//			c1.setCategory(Category.FRONTEND);
-//			c1.setHours(100);
 			courseRepository.save(c);
-//			courseRepository.save(c1);
 		};
 	}
 

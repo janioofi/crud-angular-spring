@@ -1,6 +1,7 @@
 package com.jan1ooo.crudspring.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -11,6 +12,6 @@ public record CourseDTO(
         @NotBlank @NotNull @Length(min = 3, max = 100) String name,
         @NotNull @Pattern(regexp = "Front-end|Back-end") String category,
         @NotNull @Min(1) @Max(500) Integer hours ,
-        List<LessonDTO> lessons) {
+        @NotNull @NotEmpty @Valid List<LessonDTO> lessons) {
 
 }
