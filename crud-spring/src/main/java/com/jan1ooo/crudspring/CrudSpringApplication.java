@@ -9,9 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 @SpringBootApplication
 public class CrudSpringApplication {
 
@@ -24,24 +21,26 @@ public class CrudSpringApplication {
 		return args -> {
 			courseRepository.deleteAll();
 
-			Course c = new Course();
-			c.setName("Angular");
-			c.setCategory(Category.FRONTEND);
-			c.setHours(80);
+			for(int i = 0; i < 20; i++){
+				Course c = new Course();
+				c.setName("Angular " + i);
+				c.setCategory(Category.FRONTEND);
+				c.setHours(80);
 
-			Lesson l = new Lesson();
-			l.setName("Introdução");
-			l.setYoutubeUrl("pTIhNB_ulM8");
-			l.setCourse(c);
+				Lesson l = new Lesson();
+				l.setName("Introdução");
+				l.setYoutubeUrl("pTIhNB_ulM8");
+				l.setCourse(c);
 
-			Lesson l2 = new Lesson();
-			l2.setName("Teste 2");
-			l2.setYoutubeUrl("pTIhNB_ulM8");
-			l2.setCourse(c);
-			c.getLessons().add(l);
-			c.getLessons().add(l2);
+				Lesson l2 = new Lesson();
+				l2.setName("Teste 2");
+				l2.setYoutubeUrl("pTIhNB_ulM8");
+				l2.setCourse(c);
+				c.getLessons().add(l);
+				c.getLessons().add(l2);
 
-			courseRepository.save(c);
+				courseRepository.save(c);
+			}
 		};
 	}
 

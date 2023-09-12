@@ -1,15 +1,20 @@
 package com.jan1ooo.crudspring.service;
 
 import com.jan1ooo.crudspring.dto.CourseDTO;
+import com.jan1ooo.crudspring.dto.CoursePageDTO;
 import com.jan1ooo.crudspring.dto.mapper.CourseMapper;
 import com.jan1ooo.crudspring.enums.Category;
 import com.jan1ooo.crudspring.exception.RecordNotFoundException;
 import com.jan1ooo.crudspring.model.Course;
 import com.jan1ooo.crudspring.repository.CourseRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +35,18 @@ public class CourseService {
         this.courseMapper = courseMapper;
     }
 
-    public List<CourseDTO> findAll() {
+    public CoursePageDTO findAll(@PositiveOrZero int page, @Positive @Max(100) int pageSize){
+        Page<Course> pageCourse = courseRepository.findAll(PageRequest.of(page, pageSize));
+        List<CourseDTO> courses = pageCourse.get().map(courseMapper::toDTO).toList();
+        return new CoursePageDTO(courses, pageCourse.getTotalElements(), pageCourse.getTotalPages());
+    }
+
+    /*public List<CourseDTO> findAll() {
         return courseRepository.findAll()
                 .stream()
                 .map(courseMapper::toDTO)
                 .collect(Collectors.toList());
-    }
+    }*/
 
     public CourseDTO findById(@NotNull @Positive Long id) {
         return courseRepository.findById(id)

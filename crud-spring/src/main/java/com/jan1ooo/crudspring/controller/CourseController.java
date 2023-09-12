@@ -1,12 +1,15 @@
 package com.jan1ooo.crudspring.controller;
 
 import com.jan1ooo.crudspring.dto.CourseDTO;
+import com.jan1ooo.crudspring.dto.CoursePageDTO;
 import com.jan1ooo.crudspring.model.Course;
 import com.jan1ooo.crudspring.service.CourseService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +31,8 @@ public class CourseController {
     }
 
     @GetMapping
-    @ResponseStatus(code = HttpStatus.OK)
-    public List<CourseDTO> findAll(){
-        return courseService.findAll();
+    public CoursePageDTO findAll(@RequestParam(defaultValue = "0") @PositiveOrZero int page, @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize){
+        return courseService.findAll(page, pageSize);
     }
 
     @GetMapping("/{id}")
